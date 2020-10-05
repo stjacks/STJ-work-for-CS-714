@@ -15,8 +15,18 @@ for i=1:m+1
         smallN(i, j) = actual( (i-1)*gap + 1, (j-1)*gap + 1);
     end
 end
-
+%disp(smallN - guess)a
 % max error:
-e = max(abs(smallN - m),[],'all');
+B = abs(smallN - guess);
+e = 0;
+for i = 1:m+1
+    for j = 1:m+1
+        if B(i,j) > e
+            e = B(i,j);
+        end
+    end
+end
+
+%e = max(abs(smallN - guess),[],'all');
 end
 
