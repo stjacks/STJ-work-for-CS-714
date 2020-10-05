@@ -1,4 +1,4 @@
-# In this repository
+# In this directory
 can be found:
 ##### Problem description:
  - `homework.pdf` contains the assigned questions
