@@ -1,5 +1,5 @@
 function [u] = setup_g(n)
-%setup: performs setup of the matrix from Problem 3 in the homework for a
+%setup_g: performs setup of the matrix from Problem 3.g in the homework for a
 % given granularity n. We sample points at intervals of h=1/n between 0
 % and 1 inclusive.
 h = 1/n;

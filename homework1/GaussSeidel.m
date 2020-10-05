@@ -1,5 +1,6 @@
 function [uCurr] = GaussSeidel(u)
 %GaussSeidel: performs Gauss-Seidel iteration on the input matrix u.
+%             Currently doesn't work
 
 n = size(u,1) - 1;
 h = 1/n;

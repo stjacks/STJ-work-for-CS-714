@@ -1,6 +1,6 @@
 function [answer] = exact(x,y)
-%UNTITLED Summary of this function goes here
-%   Detailed explanation goes here
+%exact: calculates the exact answer as reported in Piazza post 23
+
 aTmp = -1/(exp(4*pi) - 1);
 a = aTmp * exp(2*pi*x);
 

@@ -1,6 +1,6 @@
 function [maxErr] = maxExactError(guess,h)
-%UNTITLED2 Summary of this function goes here
-%   Detailed explanation goes here
+%maxExactError: calculates the error in the max norm of input matrix
+%               guess with granularity h
 
 numElements = size(guess,1);
 

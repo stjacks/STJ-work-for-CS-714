@@ -1,5 +1,6 @@
 function [uCurr, iter] = GaussSeidelErr(u, epsilon)
-%GaussSeidel: performs Gauss-Seidel iteration on the input matrix u.
+%GaussSeidelErr: performs Gauss-Seidel iteration on the input matrix u
+%                until the error is below a given threshold (untested code)
 
 n = size(u,1) - 1;
 h = 1/n;
