@@ -4,7 +4,7 @@ can be found:
  - `homework.pdf` contains the assigned questions
  
 ##### Assignment solutions
- -  - `Question_c.m`  contains code that answers question C.b.
+ - `Question_c.m`  contains code that answers question C.b.
  
 ##### Helper functions
  - `Gauss-Seidel.m` contains the code to run Gauss-Seidel on the input matrix to solve Problem C.b. It currently doesn't converge to the solution to Problem C.b for reasons unknown.
