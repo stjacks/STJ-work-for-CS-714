@@ -6,7 +6,7 @@ exps = [2,3,4,5,6];
 numPoints = N*2.^exps;
 deltaXs = 1./numPoints;
 
-fineDeltaX = N*(2^8);
+fineDeltaX = 1/(N*(2^8));
 deltaT = fineDeltaX * 100; % to satisfy the CFL condition and not mess up our
                        % analysis of error based on deltaX
                        
@@ -41,7 +41,7 @@ disp(maxE);
 % Plotting the results. See "convergence_direct_solver.m" provided by
 % the professor for source.
 figure(1); clf();
-loglog(deltaXs,maxErr,'o-', 'LineWidth', 2)
+loglog(deltaXs,maxE,'o-', 'LineWidth', 2)
 hold on; 
 loglog(deltaXs, deltaXs.^2, 'LineStyle', '-')
 
