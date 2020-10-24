@@ -15,42 +15,27 @@ diffs = [2^6, 2^5, 2^4, 2^3, 2^2]; % needed for maxError function
 UFineCurr = firstStep(fineDeltaX, deltaT);
 UFineOld = zeros(fineDeltaX, fineDeltaX);
 
-UCurr = [
-    zeros(numPoints(1)+1,numPoints(1)+1)
-    zeros(numPoints(2)+1,numPoints(2)+1)
-    zeros(numPoints(3)+1,numPoints(3)+1)
-    zeros(numPoints(4)+1,numPoints(4)+1)
-    zeros(numPoints(5)+1,numPoints(5)+1)];
-
-UOld = [
-    zeros(numPoints(1)+1,numPoints(1)+1)
-    zeros(numPoints(2)+1,numPoints(2)+1)
-    zeros(numPoints(3)+1,numPoints(3)+1)
-    zeros(numPoints(4)+1,numPoints(4)+1)
-    zeros(numPoints(5)+1,numPoints(5)+1)];
-
-for i=1:5
-    UCurr(i) = firstStep(deltaXs(i), deltaT);
-    UOld(i) = zeros(deltaXs(i), deltaXs(i));
-end
-
 % since deltaT is fixed, there's no error after the first step.
 
 maxE = [0,0,0,0,0];
-
-for t=1:round(1/deltaT) % iterate for t=0 through t=1
-    UFineNew = multiStep(UFineCurr, UFineOld, fineDeltaX, deltaT);
+for i=1:5
+    UCurr = firstStep(deltaXs(i), deltaT);
+    UOld = zeros(numPoints(i)+1,numPoints(i)+1);
     
-    for i=1:5
-        UNew = multiStep(UCurr(i), UOld(i), deltaXs(i), deltaT);
+    UFineCurr = firstStep(fineDeltaX, deltaT);
+    UFineOld = zeros(fineDeltaX, fineDeltaX);
+    
+    for t=1:round(1/deltaT) % iterate for t=0 through t=1
+        UFineNew = multiStep(UFineCurr, UFineOld, fineDeltaX, deltaT);
+        UNew = multiStep(UCurr, UOld, deltaXs(i), deltaT);
+        
         maxE(i) = max(maxE(i), ...
                       maxError(uNew, uFineNew, diffs(i)));
-        UOld(i) = UCurr(i);
-        UCurr(i) = UNew;
+        UOld = UCurr;
+        UCurr = UNew;
+        UFineOld = UFineCurr;
+        UFineCurr = UNew;
     end
-    
-    UFineOld = UFineCurr;
-    UFineCurr = UNew;
 end
 
 % Plotting the results. See "convergence_direct_solver.m" provided by
