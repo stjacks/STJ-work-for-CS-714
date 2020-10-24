@@ -15,8 +15,20 @@ diffs = [2^6, 2^5, 2^4, 2^3, 2^2]; % needed for maxError function
 UFineCurr = firstStep(fineDeltaX, deltaT);
 UFineOld = zeros(fineDeltaX, fineDeltaX);
 
-UCurr = [0,0,0,0,0];
-UOld  = [0,0,0,0,0];
+UCurr = [
+    zeros(numPoints(1)+1,numPoints(1)+1)
+    zeros(numPoints(2)+1,numPoints(2)+1)
+    zeros(numPoints(3)+1,numPoints(3)+1)
+    zeros(numPoints(4)+1,numPoints(4)+1)
+    zeros(numPoints(5)+1,numPoints(5)+1)];
+
+UOld = [
+    zeros(numPoints(1)+1,numPoints(1)+1)
+    zeros(numPoints(2)+1,numPoints(2)+1)
+    zeros(numPoints(3)+1,numPoints(3)+1)
+    zeros(numPoints(4)+1,numPoints(4)+1)
+    zeros(numPoints(5)+1,numPoints(5)+1)];
+
 for i=1:5
     UCurr(i) = firstStep(deltaXs(i), deltaT);
     UOld(i) = zeros(deltaXs(i), deltaXs(i));
