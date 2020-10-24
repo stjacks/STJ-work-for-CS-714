@@ -11,9 +11,6 @@ deltaT = fineDeltaX * 100; % to satisfy the CFL condition and not mess up our
                        % analysis of error based on deltaX
                        
 diffs = [2^6, 2^5, 2^4, 2^3, 2^2]; % needed for maxError function
-                       
-UFineCurr = firstStep(fineDeltaX, deltaT);
-UFineOld = zeros(fineDeltaX, fineDeltaX);
 
 % since deltaT is fixed, there's no error after the first step.
 
@@ -23,7 +20,7 @@ for i=1:5
     UOld = zeros(numPoints(i)+1,numPoints(i)+1);
     
     UFineCurr = firstStep(fineDeltaX, deltaT);
-    UFineOld = zeros(fineDeltaX, fineDeltaX);
+    UFineOld = zeros(1/fineDeltaX + 1, 1/fineDeltaX + 1);
     
     for t=1:round(1/deltaT) % iterate for t=0 through t=1
         UFineNew = multiStep(UFineCurr, UFineOld, fineDeltaX, deltaT);
