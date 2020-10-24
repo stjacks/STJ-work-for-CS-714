@@ -2,20 +2,20 @@
 
 N = 100;
 
-exps = [2,3,4,5,6];
+exps = [2,3,4,5];
 numPoints = N*2.^exps;
 deltaXs = 1./numPoints;
 
-fineDeltaX = 1/(N*(2^8));
+fineDeltaX = 1/(N*(2^7));
 deltaT = fineDeltaX * 100; % to satisfy the CFL condition and not mess up our
                        % analysis of error based on deltaX
                        
-diffs = [2^6, 2^5, 2^4, 2^3, 2^2]; % needed for maxError function
+diffs = [ 2^5, 2^4, 2^3, 2^2]; % needed for maxError function
 
 % since deltaT is fixed, there's no error after the first step.
 
 maxE = [0,0,0,0,0];
-for i=1:5
+for i=1:4
     UCurr = firstStep(deltaXs(i), deltaT);
     UOld = zeros(numPoints(i)+1,numPoints(i)+1);
     
