@@ -27,7 +27,7 @@ for i=1:4
         UNew = multiStep(UCurr, UOld, deltaXs(i), deltaT);
         
         maxE(i) = max(maxE(i), ...
-                      maxError(uNew, uFineNew, diffs(i)));
+                      maxError(UNew, UFineNew, diffs(i)));
         UOld = UCurr;
         UCurr = UNew;
         UFineOld = UFineCurr;
