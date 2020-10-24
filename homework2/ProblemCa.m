@@ -37,7 +37,7 @@ for i=1:5
         UFineCurr = UNew;
     end
 end
-
+disp(maxE);
 % Plotting the results. See "convergence_direct_solver.m" provided by
 % the professor for source.
 figure(1); clf();
