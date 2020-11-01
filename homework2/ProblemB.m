@@ -5,7 +5,6 @@ clear;
 found = false;
 N = 10;
 while ~found
-    disp(N)
     N = N + 1;
     xs = (1/N)*(0:N); % Create a grid x_j = jh with h=1/N and 0<=j<=N
     
@@ -18,13 +17,13 @@ while ~found
         slope = (Fx(b) - Fx(a))/(b-a);
         critFunction = @(x) FPrimex(x) - slope;
         
-        % Either there is a critical point within this interval, or the max
-        % error is at an endpoint (which would mean the error is 0).
+        % Either fzero will find a critical point within this interval, or
+        % we'll ignore it and double-check our work at the end.
         try 
             maxErrorPoint = fzero(critFunction, [a, b]);
         catch ME
         if strcmp(ME.identifier, 'MATLAB:fzero:ValuesAtEndPtsSameSign')
-            %error is 0, so continue
+            %fzero couldn't find a critical point. Skip the issue here
             continue;
         end
         rethrow(ME) % otherwise, we have a different issue!
@@ -52,25 +51,25 @@ for i=1:N
     slope = (Fx(b) - Fx(a))/(b-a);
     critFunction = @(x) FPrimex(x) - slope;
         
-    % Either there is a critical point within this interval, or the max
-    % error is at an endpoint (which would mean the error is 0).
+    % Try fzero to see if we can find a critical point
     try 
         maxErrorPoint = fzero(critFunction, [a, b]);
     catch ME
         if strcmp(ME.identifier, 'MATLAB:fzero:ValuesAtEndPtsSameSign')
-            disp('Values at end points matched in N: possible issue');
-            disp(a);
-            disp(b);
-            disp(critFunction(a));
-            disp(critFunction(b));
-            linValue = interp1(xs, Fx(xs), a:0.00001:b);
-            tmp = abs(linValue - Fx(a:0.00001:b));
+            % then fzero didn't find a critical point because
+            % critFunction(a) had the same sign as critFunction(b).
+            h = 1/(10^(4) * (400 + abs(slope))); 
+            linValue = interp1(xs, Fx(xs), a:h:b);
+            tmp = abs(linValue - Fx(a:h:b));
             if ~(tmp < 10^(-2))
-                disp('faulty!')
+                disp('faulty! This is not the right N')
                 disp(max(tmp));
+                break;
             end
-            %disp(linValue - Fx(a:0.00001:b));
-            %error is 0, so continue
+            if max(tmp) > maxError
+                maxError = max(tmp);
+            end
+            
             continue;
         end
         rethrow(ME) % otherwise, we have a different issue!
@@ -104,12 +103,18 @@ for i=1:N
         maxErrorPoint = fzero(critFunction, [a, b]);
     catch ME
         if strcmp(ME.identifier, 'MATLAB:fzero:ValuesAtEndPtsSameSign')
-            disp('Values at end points matched in N-1: possible issue');
-            %error is 0, so continue
-            continue;
+            %disp('Values at end points matched in N-1: possible issue');
+            h = 1/(10^(4) * (400 + abs(slope)));
+            linValue = interp1(xs, Fx(xs), a:h:b);
+            tmp = abs(linValue - Fx(a:h:b));
+            
+            if max(tmp) > maxError
+                maxError = max(tmp);
+            end
+            continue
         end
         rethrow(ME) % otherwise, we have a different issue!
-    end
+     end
         
     linValue = interp1(xs, Fx(xs), maxErrorPoint);
     if abs(linValue - Fx(maxErrorPoint)) > maxError
