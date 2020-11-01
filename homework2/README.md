@@ -16,4 +16,4 @@ A list of the files in this directory as organized by problem statement.
  - `ProblemCaPlot.m` is a script that creates the log-log plot asked for. It contains a hard-coded error vector that is the result printed by `ProblemCa.m`
  
 #### ProblemCb
- - `ProblemCb.m` is a script that samples a fine grid and plots points where the roots rho found in my writeup have absolute value <= 1
+ - `ProblemCb.m` is a script that samples a fine grid and plots points where the roots rho (found in my writeup) have absolute value <= 1
