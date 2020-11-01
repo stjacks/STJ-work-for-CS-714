@@ -9,7 +9,7 @@ deltaXs = 1./numPoints;
 
 finePoints = N*(2^7);
 fineDeltaX = 1/(finePoints);
-deltaT = fineDeltaX * 100; % to satisfy the CFL condition and not mess up our
+deltaT = fineDeltaX * (1/10); % to satisfy the CFL condition and not mess up our
                        % analysis of error based on deltaX
                        
 diffs = [ 2^5, 2^4, 2^3, 2^2]; % needed for maxError function
@@ -24,16 +24,20 @@ for i=1:4
     UFineCurr = firstStep(fineDeltaX, deltaT);
     UFineOld = zeros(finePoints + 1, finePoints + 1);
     
-    for t=1:round(1/deltaT) % iterate for t=0 through t=1
+    for t=1:100 % iterations take ages, so needs to be a small number. Sorry!
+        if mod(t,10) ==0
+	    disp(t);
+        end
+    
         UFineNew = multiStep(UFineCurr, UFineOld, fineDeltaX, deltaT);
         UNew = multiStep(UCurr, UOld, deltaXs(i), deltaT);
         
         maxE(i) = max(maxE(i), ...
-                      maxError(UNew, UFineNew, diffs(i)));
+                      maxError(UFineNew, UNew, diffs(i)));
         UOld = UCurr;
         UCurr = UNew;
         UFineOld = UFineCurr;
-        UFineCurr = UNew;
+        UFineCurr = UFineNew;
     end
 end
 disp(maxE);
