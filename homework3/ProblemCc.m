@@ -26,13 +26,15 @@ numRounds = round(0.1/dt);
 error = 0;
 disp(numRounds)
 for rounds=0:numRounds
-    if mod(rounds, 1) == 0
-        disp(rounds);
+    if mod(rounds, 10) == 0
+        disp(['Round ', num2str(rounds), 'out of ', num2str(numRounds)])
     end
     [vcurr, vold] = step(vcurr, vold, dt);
     
     for tmp=1:fineRounds
-       disp(tmp);
+       if mod(tmp, 100) == 0
+           disp(['findIteration', num2str(tmp), 'out of', num2str(fineRounds));
+       end
 
        [fcurr, fold] = step(fcurr, fold, fdt);
     end
