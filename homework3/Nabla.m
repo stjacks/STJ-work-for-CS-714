@@ -18,16 +18,16 @@ for i = 1:N+1
     v = vv(i,:);
     w = chebfft(v);
     for j=2:numPartials
-        w = chebfft(w');
+        w = chebfft(w);
     end
-    uxs(i,:) = w';
+    uxs(i,:) = w;
 end
 
 for i = 1:N+1
     v = vv(:,i);
     w = chebfft(v');
     for j=1:numPartials
-        w = chebfft(w');
+        w = chebfft(w);
     end
     uys(:,i) = w';
 end

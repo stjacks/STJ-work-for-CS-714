@@ -1,4 +1,5 @@
 function w = chebfft(v)
+% from Page 80 in Trefethen
 N = length(v)-1; if N==0, w=0; return, end
 x = cos((0:N)'*pi/N);
 ii = 0:N-1;
