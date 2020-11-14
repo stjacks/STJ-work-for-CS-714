@@ -22,14 +22,10 @@ fcurr = firstStep(fold, Fx(fxs)'*Fx(fys), fdt);
 fineRounds = dt / fdt;
 
 for tmp=2:fineRounds
-   if mod(tmp, 10) == 0
-       disp(['findIteration ', num2str(tmp), ' out of ', num2str(fineRounds)]);
-   end
-
    [fcurr, fold] = step(fcurr, fold, fdt);
 end
 
-numRounds = 0.1/dt;
+numRounds = round(0.1/dt);
 
 error = max(0,maxError(fcurr, vcurr, fN / N));
 disp(numRounds)
