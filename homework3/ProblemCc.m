@@ -19,10 +19,10 @@ vcurr = firstStep(vold, Fx(xs)'*Fx(ys), dt);
 fold = zeros(fN+1,fN+1);
 fcurr = firstStep(fold, Fx(fxs)'*Fx(fys), fdt);
 
-fineRounds = dt / fdt;
+fineRounds = round(dt / fdt);
 
 
-for tmp=1:fineRounds
+for tmp=2:fineRounds
    [fcurr, fold] = step(fcurr, fold, fdt);
 end
 
@@ -38,7 +38,7 @@ for rounds=2:numRounds
     end
     [vcurr, vold] = step(vcurr, vold, dt);
     
-    for tmp=0:fineRounds
+    for tmp=1:fineRounds
        %if mod(tmp, 10) == 0
        %    disp(['findIteration ', num2str(tmp), ' out of ', num2str(fineRounds)]);
        %end
