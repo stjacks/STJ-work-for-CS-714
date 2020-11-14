@@ -32,8 +32,8 @@ for rounds=0:numRounds
     [vcurr, vold] = step(vcurr, vold, dt);
     
     for tmp=1:fineRounds
-       if mod(tmp, 100) == 0
-           disp(['findIteration', num2str(tmp), 'out of', num2str(fineRounds));
+       if mod(tmp, 10) == 0
+           disp(['findIteration', num2str(tmp), 'out of', num2str(fineRounds)]);
        end
 
        [fcurr, fold] = step(fcurr, fold, fdt);

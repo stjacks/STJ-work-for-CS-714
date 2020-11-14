@@ -14,20 +14,20 @@ N = size(vv,1) - 1;
 uxs = zeros(N+1,N+1);
 uys = zeros(N+1,N+1);
 
-for i = 1:N
+for i = 1:N+1
     v = vv(i,:);
-    w = firstFFT(v);
+    w = chebfft(v);
     for j=2:numPartials
-        w = firstFFT(w');
+        w = chebfft(w');
     end
     uxs(i,:) = w';
 end
 
-for i = 1:N
+for i = 1:N+1
     v = vv(:,i);
-    w = firstFFT(v');
+    w = chebfft(v');
     for j=1:numPartials
-        w = firstFFT(w');
+        w = chebfft(w');
     end
     uys(:,i) = w';
 end

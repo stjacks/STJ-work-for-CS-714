@@ -9,9 +9,9 @@ ys = cos(thetas);
 V = [v, flipud(v(2:N))];
 
 
-Vhat = fft(V);
+Vhat = real(fft(V));
 What = 1i*(-N+1:N).*Vhat;
-W = ifft(What);
+W = real(ifft(What));
 
 w = zeros(N+1,1);
 w(2:N) = -W(2:N)./sqrt(1-xs(2:N).^2);
