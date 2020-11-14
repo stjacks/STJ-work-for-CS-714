@@ -21,7 +21,8 @@ fcurr = firstStep(fold, Fx(fxs)'*Fx(fys), fdt);
 
 fineRounds = dt / fdt;
 
-for tmp=2:fineRounds
+
+for tmp=1:fineRounds
    [fcurr, fold] = step(fcurr, fold, fdt);
 end
 
@@ -30,20 +31,21 @@ numRounds = round(0.1/dt);
 error = max(0,maxError(fcurr, vcurr, fN / N));
 disp(numRounds)
 for rounds=2:numRounds
+
     if mod(rounds, 10) == 0
         disp(['Round ', num2str(rounds), ' out of ', num2str(numRounds)])
         disp(['Current error: ', num2str(error)]);
     end
     [vcurr, vold] = step(vcurr, vold, dt);
     
-    for tmp=1:fineRounds
-       if mod(tmp, 10) == 0
-           disp(['findIteration ', num2str(tmp), ' out of ', num2str(fineRounds)]);
-       end
+    for tmp=0:fineRounds
+       %if mod(tmp, 10) == 0
+       %    disp(['findIteration ', num2str(tmp), ' out of ', num2str(fineRounds)]);
+       %end
 
        [fcurr, fold] = step(fcurr, fold, fdt);
     end
-    
+
     error = max(error,maxError(fcurr, vcurr, fN / N));
     
 end
