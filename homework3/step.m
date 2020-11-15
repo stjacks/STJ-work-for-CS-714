@@ -14,5 +14,10 @@ vvLL = Laplacian(vvL);   %two applications of the Laplacian
     
 vvNew = -vvOld + 2*vvCurr + ((dt)^2)*vvL + (1/12)*((dt)^4)*vvLL;
 
+% force Dirichlet boundary conditions
+vvNew(1,:) = 0;
+vvNew(:,1) = 0;
+vvNew(N+1,:) = 0;
+vvNew(:,N+1) = 0;
 end
 

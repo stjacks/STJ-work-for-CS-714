@@ -5,7 +5,7 @@ T = 0.75;
 
 waveDt = (1/N)*(1/5);
 
-Bs = 10:10:200;
+Bs = 5:5:150;
 errSp = zeros(length(Bs),1); % spectral error
 errFd = zeros(length(Bs),1); % finite difference error
 %errFd2 = zeros(length(Bs),1);
@@ -41,5 +41,5 @@ ax.XAxis.FontSize = 13;
 
 title('Error by change in B','Interpreter','latex', 'FontSize', 24);
 xlabel('B','Interpreter','latex', 'FontSize', 18)
-ylabel('Error at time 0.75','Interpreter','latex', 'FontSize', 18)
+ylabel('log of error at time 0.75','Interpreter','latex', 'FontSize', 18)
 hold off
