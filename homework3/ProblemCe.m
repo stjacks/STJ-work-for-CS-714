@@ -1,35 +1,39 @@
-clear
+clear;
+clf;
 N = 64;
 T = 0.75;
 
-waveDt = (1/N)*(1/10);
+waveDt = (1/N)*(1/5);
 
-Bs = 1:11;
+Bs = 10:10:200;
 errSp = zeros(length(Bs),1); % spectral error
 errFd = zeros(length(Bs),1); % finite difference error
-
-spectErrors = zeros(11,1);
-fdErrors = zeros(11,1);
-
-for B = Bs
+%errFd2 = zeros(length(Bs),1);
+for i=1:length(Bs)
+    B = Bs(i);
     disp(B);
-    [spect, xs, ys] = spectralWave(N, T, B);
+    [spect, xs, ys, ts] = spectralWave(N, T, B);
     [fd, xf, yf] = wave_solution(N, T, waveDt, B);
+    %[fd, xf, yf] = finiteDiff(N, T, B);
     
-    spectSolution = (1/(2*B*pi))*sin(B*pi*ys)*sin(B*pi*xs).*sin(2*B*pi*T);
+    % adjust for x,y in [-1,1] instead of [0,1]
+    spectSolution = (1/(2*B*pi))*sin(B*pi*(0.5*ys+0.5))*sin(B*pi*(0.5*xs+0.5)).*sin(2*B*pi*ts);
+    %spectSolution = (1/(2*B*pi))*sin(B*pi*ys)*sin(B*pi*xs).*sin(2*B*pi*ts);
     fdSolution = (1/(2*B*pi))*sin(B*pi*yf')*sin(B*pi*xf).*sin(2*B*pi*T);
     
-    spectError = max(max(spectSolution - spect));
-    fdError = max(max(fdSolution - fd));
-    
-    errorIndex = round(B*10+1);
-    spectErrors(errorIndex) = log(spectError);
-    fdErrors(errorIndex) = log(fdError);
+    spectError = max(max(abs(spectSolution - spect)));
+    fdError = max(max(abs(fdSolution - fd)));
+    %fdError2 = max(max(abs(fdSolution - fd2)));
+
+    errSp(i) = log(spectError);
+    errFd(i) = log(fdError);
+    %errFd2(i) = log(fdError2);
 end
 
 hold on
-plot(B, spectErrors);
-plot(B, fdErrors);
+plot(Bs, errSp, '-');
+plot(Bs, errFd, '--');
+%plot(Bs, errFd2, '-');
 
 ax = gca;
 ax.YAxis.FontSize = 13;
@@ -38,3 +42,4 @@ ax.XAxis.FontSize = 13;
 title('Error by change in B','Interpreter','latex', 'FontSize', 24);
 xlabel('B','Interpreter','latex', 'FontSize', 18)
 ylabel('Error at time 0.75','Interpreter','latex', 'FontSize', 18)
+hold off
