@@ -2,8 +2,9 @@ function [L] = Laplacian(vv)
 %Laplacian: takes the laplacian of the input vector vv.
 N = size(vv,1) - 1;
 thetas = (1/N)*pi*(0:N);
-x = cos(thetas);
-y = cos(thetas)';
+x = cos(thetas); % these values go from -1 to 1. We need from 0 to 1
+x = (1/2)*x + 0.5;
+y = x';
 
 uxx = zeros(N+1,N+1); uyy = zeros(N+1,N+1);
 ii = 2:N;

@@ -1,4 +1,4 @@
-function u = wave_solution(N, T, dt, B)
+function [u, x, y] = wave_solution(N, T, dt, B)
 % Sourced from class Github. Modified slightly to match new initial
 % conditions and remove plotting.
 
@@ -33,9 +33,6 @@ dy = 1/(M-1);
 % grids in each dimension
 x = 0:dx:1;
 y = 0:dy:1;
-
-% printing the CFL number
-fprintf("CFL number is %.4f \n", dt/dx )
 
 % 2D grids
 [X Y] = meshgrid(x,y);

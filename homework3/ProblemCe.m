@@ -4,15 +4,37 @@ T = 0.75;
 
 waveDt = (1/N)*(1/10);
 
-Bs = 0:0.1:1;
-errSp = zeros(11,1); % spectral error
-errFd = zeros(11,1); % finite difference error
+Bs = 1:11;
+errSp = zeros(length(Bs),1); % spectral error
+errFd = zeros(length(Bs),1); % finite difference error
 
-sol = CeSolution(N, T);
+spectErrors = zeros(11,1);
+fdErrors = zeros(11,1);
 
 for B = Bs
-    spect = spectralWave(N, T, B);
-    fD = wave_solution(N, T, waveDt, B);
+    disp(B);
+    [spect, xs, ys] = spectralWave(N, T, B);
+    [fd, xf, yf] = wave_solution(N, T, waveDt, B);
     
+    spectSolution = (1/(2*B*pi))*sin(B*pi*ys)*sin(B*pi*xs).*sin(2*B*pi*T);
+    fdSolution = (1/(2*B*pi))*sin(B*pi*yf')*sin(B*pi*xf).*sin(2*B*pi*T);
     
+    spectError = max(max(spectSolution - spect));
+    fdError = max(max(fdSolution - fd));
+    
+    errorIndex = round(B*10+1);
+    spectErrors(errorIndex) = log(spectError);
+    fdErrors(errorIndex) = log(fdError);
 end
+
+hold on
+plot(B, spectErrors);
+plot(B, fdErrors);
+
+ax = gca;
+ax.YAxis.FontSize = 13;
+ax.XAxis.FontSize = 13;
+
+title('Error by change in B','Interpreter','latex', 'FontSize', 24);
+xlabel('B','Interpreter','latex', 'FontSize', 18)
+ylabel('Error at time 0.75','Interpreter','latex', 'FontSize', 18)
