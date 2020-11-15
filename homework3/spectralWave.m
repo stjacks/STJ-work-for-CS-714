@@ -4,7 +4,6 @@ function [ucurr, xs, ys, time] = spectralWave(N, T, B)
 N = N-1;
 thetas = (1/N)*pi*(0:N);
 xs = cos(thetas); % these values go from -1 to 1. We need from 0 to 1
-%xs = (1/2)*xs + 0.5;
 ys = xs';
 dt = 6*(1/N)^2;
 

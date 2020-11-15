@@ -9,7 +9,7 @@ function [u1] = firstStep(u0, ut0, dt)
 %    u1  : grid at time 1
 
 N = size(u0,1) - 1;
-u1 = u0 + dt*ut0 + (dt^2)*Laplacian(u0) + (dt^3)*Laplacian(ut0);
+u1 = u0 + dt*ut0 + (1/2)*(dt^2)*Laplacian(u0) + (1/6)*(dt^3)*Laplacian(ut0);
 
 % homogeneous boundary conditions
 u1(1,:) = 0;

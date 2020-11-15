@@ -31,3 +31,15 @@ disp(["The error for test 3 is ", num2str(error)]);
 d = Laplacian(d);
 error = max(max(abs(d - U)));
 disp(["The error for test 3.1 is ", num2str(error)]);
+
+for i = 1:N+1
+    for j = 1:N+1
+        U(i,j) = exp(x(i))*exp(y(j));
+    end
+end
+d = Laplacian(U);
+error = max(max(abs(d - 2*U)));
+disp(["The error for test 4 is ", num2str(error)]);
+d = Laplacian(d);
+error = max(max(abs(d - 4*U)));
+disp(["The error for test 4.1 is ", num2str(error)]);

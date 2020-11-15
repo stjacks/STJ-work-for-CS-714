@@ -21,11 +21,7 @@ error = max(max(abs(d + sin(x))));
 disp(["The error for test 2.1 is ", num2str(error)]);
 
 
-for i = 1:N+1
-    for j = 1:N+1
-        U(i,j) = sin(x(i)) + sin(x(j));
-    end
-end
-d = Laplacian(U);
-error = max(max(abs(d + U)));
+U = exp(x);
+d = chebfft(U);
+error = max(max(abs(d - U)));
 disp(["The error for test 3 is ", num2str(error)]);

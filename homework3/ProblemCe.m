@@ -1,5 +1,4 @@
 clear;
-clf;
 N = 64;
 T = 0.75;
 
@@ -14,26 +13,25 @@ for i=1:length(Bs)
     disp(B);
     [spect, xs, ys, ts] = spectralWave(N, T, B);
     [fd, xf, yf] = wave_solution(N, T, waveDt, B);
-    %[fd, xf, yf] = finiteDiff(N, T, B);
     
     % adjust for x,y in [-1,1] instead of [0,1]
-    spectSolution = (1/(2*B*pi))*sin(B*pi*(0.5*ys+0.5))*sin(B*pi*(0.5*xs+0.5)).*sin(2*B*pi*ts);
-    %spectSolution = (1/(2*B*pi))*sin(B*pi*ys)*sin(B*pi*xs).*sin(2*B*pi*ts);
-    fdSolution = (1/(2*B*pi))*sin(B*pi*yf')*sin(B*pi*xf).*sin(2*B*pi*T);
+    spectSolution = (1/(sqrt(2)*B*pi))*sin(B*pi*(0.5*ys+0.5))*...
+                     sin(B*pi*(0.5*xs+0.5)).*sin(sqrt(2)*B*pi*ts);
+    fdSolution = (1/(sqrt(2)*B*pi))*sin(B*pi*yf')*sin(B*pi*xf).*...
+        sin(sqrt(2)*B*pi*T);
     
     spectError = max(max(abs(spectSolution - spect)));
     fdError = max(max(abs(fdSolution - fd)));
-    %fdError2 = max(max(abs(fdSolution - fd2)));
 
     errSp(i) = log(spectError);
     errFd(i) = log(fdError);
-    %errFd2(i) = log(fdError2);
 end
+
+disp(spectError)
 
 hold on
 plot(Bs, errSp, '-');
 plot(Bs, errFd, '--');
-%plot(Bs, errFd2, '-');
 
 ax = gca;
 ax.YAxis.FontSize = 13;
