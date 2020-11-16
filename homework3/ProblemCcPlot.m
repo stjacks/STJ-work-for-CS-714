@@ -1,11 +1,11 @@
-N= [ 100, 150, 200 ];
-maxE = [ 8.7137e-12, , 1.0706e-12];
+N= [ 100, 150 ];
+maxE = [ 8.7137e-12, 1.1273e-12];
 
 
 figure(1); clf();
 loglog(N,maxE,'o-', 'LineWidth', 2)
 hold on; 
-loglog(N, (1./N).^4, 'LineStyle', '-')
+loglog(N, (1./N).^4, 'LineStyle', '--')
 
 ax = gca;
 ax.YAxis.FontSize = 13;
