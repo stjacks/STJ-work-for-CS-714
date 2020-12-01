@@ -1,14 +1,14 @@
 clear;
 
-N = 20;
+N = 401;
 
 dx = 1/N;
-dt = 0.2*dx; % TBD
+dt = 0.45*dx; % TBD
 
 xs = 0:dx:1;
 avgs = (xs(1:N) + xs(2:N+1))/2;
 
-Q = initUpwind(xs, dx); % initial averages of cell values.
+Q = initGodunov(xs, dx); % initial averages of cell values.
 %Q = (3/2) + sin(2*pi*xs);
 %iter = 0
 

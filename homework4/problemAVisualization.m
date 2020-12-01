@@ -1,9 +1,9 @@
 clear;
 
-N = 16;
+N = 128;
 
 dx = 1/N;
-dt = 0.1*dx; % TBD
+dt = (0.5)*dx; % TBD
 
 xs = 0:dx:1;
 

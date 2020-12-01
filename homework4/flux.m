@@ -10,6 +10,11 @@ for i=1:(N+1)
     if i==N+1, a=Q(1); else, a=Q(i); end
     if i==1, b=Q(N); else, b=Q(i-1); end % periodic boundary conditions
     
+    if f(a) == f(b)
+        F(i) = f(b); % doesn't matter if f(Q_i) or F(Q_(i-1))
+        continue;
+    end
+    
     S = (f(a) - f(b))/(a-b);
     
     if (b > qs) && S > 0
