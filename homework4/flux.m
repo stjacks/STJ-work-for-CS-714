@@ -1,13 +1,18 @@
 function [F] = flux(Q,qs)
-%UNTITLED3 Summary of this function goes here
-%   Detailed explanation goes here
+%flux Calculates the flux according to Equation 12.2 of LeVeque
+%
+%   input: Q, the vector of Qis
+%         qs, the stagnation point
+%
+%   returns: F_(i-1/2), the output of the flux function
+
 N = length(Q);
 F = zeros(1, N+1);
 
 f = @(x) (1/2)*(x.^2);
 
 for i=1:(N+1)
-    if i==N+1, a=Q(1); else, a=Q(i); end
+    if i==N+1, a=Q(1); else, a=Q(i); end % periodic boundary conditions
     if i==1, b=Q(N); else, b=Q(i-1); end % periodic boundary conditions
     
     if f(a) == f(b)
@@ -24,7 +29,7 @@ for i=1:(N+1)
     elseif (b < qs) && (qs < a)
         F(i) = f(qs);
     else
-        disp("Issues!");
+        disp("Issues!"); % we shouldn't reach this point!
     end
 
 end

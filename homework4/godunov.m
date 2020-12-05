@@ -1,10 +1,14 @@
 function [Q] = godunov(Q, dt, dx, steps)
-%UNTITLED2 Summary of this function goes here
-%   Detailed explanation goes here
+%godunov Implements Godunov's method
+%
+%   input: Q, vector of Qis
+%         dt, delta t (granularity in time stepping)
+%         dx, delta x (granularity in grid spacing)
+%      steps, number of steps to run Godunov's method
+%
+%   output: Q, vector of Qis at time dt*steps
 
 N = length(Q);
-
-% These indices use the periodic boundary conditions.
 
 for i=1:steps
     

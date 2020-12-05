@@ -1,5 +1,11 @@
 function [Q0] = initUpwind(xs,dx)
-%initUpwind implements Eq 4 from my writeup, with the same goals. 
+%initUpwind implements Eq 4 from my writeup, with the same goals.
+%
+%   input: xs, grid points
+%          dx, delta x, granularity of grid spacing
+%
+%   output:
+%          Q0, initial values of Qis.
 
 b = 2:length(xs);
 a = 1:(length(xs) - 1);

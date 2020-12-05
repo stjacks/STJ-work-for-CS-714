@@ -1,6 +1,5 @@
 function [Unew] = upwind(U, dt, dx, steps)
-%UNTITLED2 Summary of this function goes here
-%   Detailed explanation goes here
+%upwind Implements the upwind method for "steps" number of time steps
 
 N = length(U);
 
@@ -14,8 +13,8 @@ for i=1:steps
     Uforward = U(forward) - U;
     Uback = U - U(backward);
     
-    Uplus = U > 0;
-    Uminus = U < 0;
+    Uplus = U > 0; % boolean vector
+    Uminus = U < 0; % boolean vector
     
     spaceDiscretization = Uplus.*Uback + Uminus.*Uforward;
     

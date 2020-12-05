@@ -3,7 +3,7 @@ clear;
 N = 400;
 
 dx = 1/N;
-dt = 0.4*dx; % TBD
+dt = 0.4*dx;
 
 xs = 0:dx:1;
 avgs = (xs(1:N) + xs(2:N+1))/2;
@@ -29,6 +29,7 @@ while 1
     if iter > T
         break;
     end
+    % uncomment if you want to watch it evolve over time
     %pause(0.1);
 end
 
