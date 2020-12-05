@@ -3,7 +3,7 @@ clear;
 N = 401;
 
 dx = 1/N;
-dt = 0.45*dx; % TBD
+dt = 0.45*dx; 
 
 xs = 0:dx:1;
 avgs = (xs(1:N) + xs(2:N+1))/2;
